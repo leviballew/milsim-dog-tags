@@ -2,13 +2,11 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.seed = function(knex) {
-  return knex('dogtags').del()
-    .then(function () {
-      return knex('dogtags').insert([
-        {owner_id: 1, collector_id: 2, event_id: 1},
-        {owner_id: 2, collector_id: 3, event_id: 1}
-      ]);
-    });
+exports.seed = async function(knex) {
+  await knex('dogtags').del();
+  await knex('dogtags').insert([
+    {id: 1, collector_id: 1, event_id: 1, giver_id: 2},
+    {id: 2, collector_id: 2, event_id: 2, giver_id: 3},
+    {id: 3, collector_id: 2, event_id: 2, giver_id: 4}
+  ]);
 };
-
