@@ -1,0 +1,59 @@
+Airsoft Dog Tag Exchange Platform Schema
+
+Users Table
+id: Primary key, auto-increments.
+username: String, unique, not nullable.
+email: String, unique, optional (for profile recovery).
+password_hash: String, not nullable (stores the bcrypt hash of the user's password).
+avatar_url: String, optional.
+bio: Text, optional.
+created_at: Timestamp.
+updated_at: Timestamp.
+
+Dog Tags Table
+id: Primary key, auto-increments.
+owner_id: Foreign key referencing Users.id.
+collector_id: Foreign key referencing Users.id, nullable.
+event_id: Foreign key referencing Events.id, nullable.
+collection_date: Date.
+
+Events Table
+id: Primary key, auto-increments.
+name: String.
+location: String.
+date: Date.
+description: Text, optional.
+
+Tag Transfers Table
+id: Primary key, auto-increments.
+tag_id: Foreign key referencing Dog Tags.id.
+sender_id: Foreign key referencing Users.id.
+receiver_id: Foreign key referencing Users.id.
+transfer_date: Timestamp.
+
+Users_Events Join Table (for many-to-many relationship between users and events)
+user_id: Foreign key referencing Users.id.
+event_id: Foreign key referencing Events.id.
+
++---------+     +-----------+     +---------+
+|  Users  |     |  Dog Tags |     |  Events |
++---------+     +-----------+     +---------+
+| - id    |<-+  | - id      |<-+  | - id    |
+| - username |  | - owner_id |  |  | - name  |
+| - email   |  | - collector_id |  |  | - location |
+| - password_hash |  | - event_id  |  |  | - date  |
+| - avatar_url |  +-----------+  |  | - description |
+| - bio    |  |    ^     ^      | - created_at |
+| - created_at |  |    |     |      | - updated_at |
+| - updated_at |  +-----------------+-----------------+
++---------+       |    ^     ^
+                   |    |     |
++-----------------+  |     +-----------------+
+| Tag Transfers   |  |     | Users_Events    |
++-----------------+  |     +-----------------+
+| - id            |  |     | - user_id       |
+| - tag_id        |  |     | - event_id      |
+| - sender_id     |  +-----+-----------------+
+| - receiver_id   |
+| - transfer_date |
++-----------------+
