@@ -1,0 +1,8 @@
+**** Builds database container ****
+docker run --name dogtags_db_container -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=dogtags_db -p 5432:5432 -d postgres
+
+*** Connect to Postgres Database ***
+docker exec -it dogtags_db_container /bin/bash
+psql -U postgres -d dogtags_db
+
+DB_CONNECTION_STRING=postgres://postgres:docker@localhost:5432/dogtags_db
