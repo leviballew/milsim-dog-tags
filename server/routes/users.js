@@ -21,7 +21,7 @@ router.get('/:id', authenticateToken, async (req, res) => {
   try {
     const { id } = req.params;
     const user = await knex('users')
-      .select('username', 'email') // Select only the username and email fields
+      .select('id', 'username', 'email') // Select only the username and email fields
       .where({ id })
       .first();
     if (user) {

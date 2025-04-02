@@ -1,13 +1,31 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
+import Dogtag from '../components/Dogtag';
 
 const Profile = () => {
     const { isAuthenticated, user } = useContext(AuthContext);
+    const [dogtags, setDogtags] = useState([]);
 
     useEffect(() => {
-        console.log('User data in Profile:', user); // Add this line
+        if (!user || !user.id) return;
+        const fetchDogtags = async () => {
+            try {
+                const response = await fetch(`http://localhost:8080/dogtags/collected/${user.id}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setDogtags(data);
+                } else {
+                    console.error('Failed to fetch dogtags:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Failed to fetch dogtags:', error);
+            }
+        };
+
+        fetchDogtags();
     }, [user]);
+
 
     if (!isAuthenticated) {
         return (
@@ -27,7 +45,18 @@ const Profile = () => {
                     <p>Email: {user.email}</p>
                 </>
             ) : (
-                <p>Loading...</p>
+                <p>Loading user info...</p>
+            )}
+
+            <h2>Your Collected Dogtags</h2>
+            {dogtags.length === 0 ? (
+                <p>No dogtags collected yet.</p>
+            ) : (
+                <div className="dogtags">
+                    {dogtags.map(dogtag => (
+                        <Dogtag key={dogtag.id} dogtag={dogtag} />
+                    ))}
+                </div>
             )}
         </div>
     );
