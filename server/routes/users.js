@@ -5,6 +5,7 @@ const config = require('../knexfile')[environment];
 const knex = require('knex')(config);
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const authenticateToken = require('../middleware/auth');
 
 router.get('/', async (req, res) => {
   try {
@@ -16,11 +17,13 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Get a single user by ID
-router.get('/:id', async (req, res) => {
+router.get('/:id', authenticateToken, async (req, res) => {
   try {
     const { id } = req.params;
-    const user = await knex('users').select('*').where({ id }).first();
+    const user = await knex('users')
+      .select('username', 'email') // Select only the username and email fields
+      .where({ id })
+      .first();
     if (user) {
       res.json(user);
     } else {
@@ -40,7 +43,7 @@ router.post('/login', async (req, res) => {
 
     if (user && await bcrypt.compare(password, user.password)) {
       const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-      res.json({ token });
+      res.json({ token, id: user.id });
     } else {
       res.status(401).json({ error: 'Invalid username or password' });
     }
@@ -49,6 +52,5 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
 
 module.exports = router;

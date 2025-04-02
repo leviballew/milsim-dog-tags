@@ -11,22 +11,8 @@ const Login = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await fetch('http://localhost:8080/users/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username, password }),
-            });
-
-            if (!response.ok) {
-                throw new Error('Login failed');
-            }
-
-            const data = await response.json();
-            const token = data.token;
-            login(token);  // Set the user as logged in
-            navigate('/'); // Redirect to home page or dashboard
+            await login(username, password);
+            navigate('/profile'); // Redirect to home page or dashboard
         } catch (error) {
             console.error('Login failed:', error);
             // Handle errors here, such as showing a notification
