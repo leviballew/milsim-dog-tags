@@ -1,13 +1,25 @@
 // src/pages/Login.jsx
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { AuthContext } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
-const Login = ({ handleLogin }) => {
+const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const { login } = useContext(AuthContext);
+    const navigate = useNavigate();
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        handleLogin(username, password);
+        try {
+            // Simulate an API call
+            const token = 'fake-jwt-token'; // this should come from your backend
+            login(token);  // Set the user as logged in
+            navigate('/'); // Redirect to home page or dashboard
+        } catch (error) {
+            console.error('Login failed:', error);
+            // Handle errors here, such as showing a notification
+        }
     };
 
     return (

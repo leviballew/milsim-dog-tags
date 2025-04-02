@@ -1,14 +1,26 @@
 // src/pages/Signup.jsx
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { AuthContext } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const { login } = useContext(AuthContext);
+    const navigate = useNavigate();
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        // Implement your signup logic here
+        try {
+            // Simulate API signup
+            const token = 'fake-jwt-token-from-signup'; // This should be replaced with actual signup logic
+            login(token);  // Log in the user
+            navigate('/'); // Redirect to home page or dashboard
+        } catch (error) {
+            console.error('Signup failed:', error);
+            // Handle errors here
+        }
     };
 
     return (

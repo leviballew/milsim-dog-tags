@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../contexts/AuthContext';
 import '../styles/home.css';
 
-const Home = ({ isAuthenticated }) => {
+const Home = () => {
+    const { isAuthenticated } = useContext(AuthContext);
+
     return (
         <div className="home">
             <h1>Welcome to Our App!</h1>
