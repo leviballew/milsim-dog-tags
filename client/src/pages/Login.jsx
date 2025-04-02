@@ -1,4 +1,3 @@
-// src/pages/Login.jsx
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -12,8 +11,20 @@ const Login = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            // Simulate an API call
-            const token = 'fake-jwt-token'; // this should come from your backend
+            const response = await fetch('http://localhost:8080/users/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Login failed');
+            }
+
+            const data = await response.json();
+            const token = data.token;
             login(token);  // Set the user as logged in
             navigate('/'); // Redirect to home page or dashboard
         } catch (error) {

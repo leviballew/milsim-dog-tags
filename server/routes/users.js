@@ -3,6 +3,8 @@ const router = express.Router();
 const environment = process.env.NODE_ENV || 'development';
 const config = require('../knexfile')[environment];
 const knex = require('knex')(config);
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 router.get('/', async (req, res) => {
   try {
@@ -26,6 +28,24 @@ router.get('/:id', async (req, res) => {
     }
   } catch (error) {
     console.error('Error fetching user:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Login route
+router.post('/login', async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const user = await knex('users').select('*').where({ username }).first();
+
+    if (user && await bcrypt.compare(password, user.password)) {
+      const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+      res.json({ token });
+    } else {
+      res.status(401).json({ error: 'Invalid username or password' });
+    }
+  } catch (error) {
+    console.error('Error logging in:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
