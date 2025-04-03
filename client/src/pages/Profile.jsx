@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import Dogtag from '../components/Dogtag';
+import '../styles/pages/profile.css';
 
 const Profile = () => {
     const { isAuthenticated, user } = useContext(AuthContext);
@@ -29,7 +30,7 @@ const Profile = () => {
 
     if (!isAuthenticated) {
         return (
-            <div>
+            <div className="unauthorized">
                 <h1>Unauthorized</h1>
                 <p>You need to <Link to="/login">login</Link> to view this page.</p>
             </div>
@@ -37,7 +38,7 @@ const Profile = () => {
     }
 
     return (
-        <div>
+        <div className="profile">
             <h1>Profile</h1>
             {user ? (
                 <>

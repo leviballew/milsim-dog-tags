@@ -1,0 +1,61 @@
+/* src/styles/messages.css */
+
+.messages {
+  background-color: #1c1c1c;
+  color: #e4e4e4;
+  min-height: 100vh;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.messages h1 {
+  font-size: 2rem;
+  color: #ffa733;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #333;
+  padding-bottom: 0.5rem;
+}
+
+.messages p {
+  font-size: 1rem;
+  color: #bbb;
+  margin-top: 1rem;
+}
+
+.messages ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 1.5rem;
+}
+
+.messages li {
+  background-color: #292929;
+  border: 1px solid #333;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.messages li p {
+  margin: 0;
+  color: #e6e6e6;
+  font-weight: 500;
+}
+
+.messages button {
+  background-color: #ffa733;
+  color: #1c1c1c;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.messages button:hover {
+  background-color: #ff8c1a;
+}

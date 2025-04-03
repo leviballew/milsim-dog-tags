@@ -1,0 +1,39 @@
+/* src/styles/components/searchedUser.css */
+
+.searched-user {
+  background-color: #262626;
+  border: 1px solid #3a3a3a;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.searched-user:hover {
+  transform: scale(1.01);
+  box-shadow: 0 0 8px rgba(255, 165, 0, 0.2);
+}
+
+.searched-user .username {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #e6e6e6;
+}
+
+.searched-user button {
+  background-color: #ffa733;
+  color: #1a1a1a;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.searched-user button:hover {
+  background-color: #ff8c1a;
+}

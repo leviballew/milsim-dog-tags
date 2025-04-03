@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Profile from './pages/Profile';
 import Messages from './pages/Messages';
+import './styles/index.css';
 
 const App = () => {
     return (

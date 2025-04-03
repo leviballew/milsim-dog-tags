@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/components/dogtag.css';
 
 const Dogtag = ({ dogtag }) => {
   return (

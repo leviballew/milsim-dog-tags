@@ -1,5 +1,6 @@
 // src/components/SearchedUser.jsx
 import React from 'react';
+import '../styles/components/searchedUser.css';
 
 const SearchedUser = ({ user }) => {
     const handleRequest = async () => {
@@ -24,7 +25,7 @@ const SearchedUser = ({ user }) => {
     };
 
     return (
-        <li>
+        <li className="searched-user">
             <p>Username: {user.username}</p>
             <p>Email: {user.email}</p>
             <button onClick={handleRequest}>Request Dogtags</button>

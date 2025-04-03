@@ -1,6 +1,7 @@
 // src/pages/Messages.jsx
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
+import '../styles/pages/Messages.css';
 
 const Messages = () => {
     const { user } = useContext(AuthContext);
