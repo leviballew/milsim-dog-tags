@@ -9,7 +9,6 @@ const authenticateToken = require('../middleware/auth');
 
 router.get('/searchUsers', authenticateToken, async (req, res) => {
   const { userId, searchTerm } = req.query;
-
   try {
     let query = knex('users')
       .select('id', 'username', 'email')
@@ -31,7 +30,7 @@ router.get('/:id', authenticateToken, async (req, res) => {
   try {
     const { id } = req.params;
     const user = await knex('users')
-      .select('id', 'username', 'email') // Select only the username and email fields
+      .select('id', 'username', 'email')
       .where({ id })
       .first();
     if (user) {
@@ -45,7 +44,6 @@ router.get('/:id', authenticateToken, async (req, res) => {
   }
 });
 
-// Login route
 router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;

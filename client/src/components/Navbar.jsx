@@ -15,14 +15,16 @@ const Navbar = () => {
             {isAuthenticated ? (
                 <>
                     <Link to="/profile">Profile</Link>
+                    <Link to="/messages">Messages</Link>
                     <button onClick={handleLogout}>Logout</button>
                 </>
-            ) : (
+                ) : (
                 <>
                     <Link to="/login">Login</Link>
                     <Link to="/signup">Signup</Link>
                 </>
-            )}
+                )}
+
         </nav>
     );
 };

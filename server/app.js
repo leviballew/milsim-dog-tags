@@ -11,6 +11,7 @@ const port = 8080;
 
 const userRoutes = require('./routes/users');
 const dogtagsRoutes = require('./routes/dogtags');
+const requestRoutes = require('./routes/requests');
 
 
 const cors = require('cors')
@@ -24,6 +25,7 @@ app.use(cors({
 
 app.use('/users', userRoutes);
 app.use('/dogtags', dogtagsRoutes);
+app.use('/requests', requestRoutes);
 
 app.listen(port, (req, res) => {
   console.log(`Your server is up at http://localhost:${port}/`)
