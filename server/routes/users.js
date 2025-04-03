@@ -7,9 +7,19 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const authenticateToken = require('../middleware/auth');
 
-router.get('/', async (req, res) => {
+router.get('/searchUsers', authenticateToken, async (req, res) => {
+  const { userId, searchTerm } = req.query;
+
   try {
-    const users = await knex('users').select('*');
+    let query = knex('users')
+      .select('id', 'username', 'email')
+      .whereNot('id', userId);
+
+    if (searchTerm) {
+      query = query.andWhere('username', 'like', `%${searchTerm}%`);
+    }
+
+    const users = await query;
     res.json(users);
   } catch (error) {
     console.error('Error fetching users:', error);
